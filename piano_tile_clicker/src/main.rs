@@ -7,7 +7,6 @@ use std::ptr::null_mut;
 mod colour;
 use enigo::*;
 
-
 fn main()
 {
     let cursor_location: (i32, i32) = Enigo::mouse_location();
