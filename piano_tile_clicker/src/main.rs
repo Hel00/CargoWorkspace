@@ -9,10 +9,11 @@ use enigo::*;
 
 fn main()
 {
-    let cursor_location: (i32, i32) = Enigo::mouse_location();
     let mut enigo = Enigo::new();
     enigo.mouse_move_to(500, 200);
 
+    let cursor_location: (i32, i32) = Enigo::mouse_location();
+    
     unsafe
     {
         let colour_u32 = GetPixel(GetDC(null_mut()), 500, 500);
