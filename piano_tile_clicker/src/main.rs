@@ -43,6 +43,16 @@ unsafe fn click_tile(hdc: *mut HDC__, enigo: &mut Enigo, x: i32, y: i32)
     }
 }
 
+macro_rules! tile_sensors
+{
+    ($hdc: expr, $enigo: expr, $($x: expr, $y: expr);+) =>
+    {
+        $(
+            click_tile($hdc, $enigo, $x, $y);
+        )*
+    }
+}
+
 fn main()
 {
     unsafe
@@ -82,6 +92,12 @@ fn main()
             click_tile(hdc, &mut enigo, 715, 570);
             click_tile(hdc, &mut enigo, 800, 570);
             click_tile(hdc, &mut enigo, 900, 570);
+
+            tile_sensors!(hdc, &mut enigo, 620, 570;
+                                           715, 570;
+                                           800, 570;
+                                           900, 570
+            );
 
             //thread::sleep(SLEEP_TIME);
         }
