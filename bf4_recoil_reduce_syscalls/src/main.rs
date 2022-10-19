@@ -2,8 +2,6 @@
 
 #![no_main]
 
-extern crate libc;
-
 #[link(name = "kernel32", kind = "dylib")]
 extern
 {
