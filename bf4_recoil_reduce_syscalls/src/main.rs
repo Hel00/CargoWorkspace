@@ -10,6 +10,7 @@ extern
     fn ReadProcessMemory(handle: u32, read_from: u64, write_to: &mut u64, size: u64, idk: u64);
     fn WriteProcessMemory(handle: u32, read_from: u64, write_to: &mut u64, size: u64, idk: u64);
     fn OpenProcess(desired_access: u32, inherit_handle: bool, process_id: u32) -> u32;
+    fn Sleep(miliseconds: u32);
 }
 
 #[link(name = "user32", kind = "dylib")]
@@ -58,9 +59,10 @@ const PROCESS_ALL_ACCESS: u32 = 2035711; //(0x000F0000L | 0x00100000L | 0xFFF); 
 #[no_mangle]
 pub extern "C" fn main()
 {
-    let process_name = "Ring0 Atomic 7.4\0";
-    //const DELAY: Duration = Duration::new(5, 0);
+    let process_name = "Battlefield 4\0";
+    const DELAY: u32 = 2500;
     let mut pid: u32 = 0;
+    const half_float: u64 = 0x3F000000;
 
     unsafe
     {
@@ -70,31 +72,32 @@ pub extern "C" fn main()
 
         let handle = OpenProcess(PROCESS_ALL_ACCESS, false, pid as u32);
 
-        let mut result = read_memory(handle, [0x04D81420]);
 
-        /*println!("Pid is {pid}");
-        println!("Result is {result}");*/
+        /*let mut result = read_memory(handle, [0x04D81420]);
+
+        println!("Pid is {pid}");
+        println!("Result is {result}");
 
         write_memory(handle, 0x04D81420, 69);
 
         result = read_memory(handle, [0x04D81420]);
-        //println!("Now it's is {result}");
+        println!("Now it's is {result}");*/
         
-        /*loop
+        loop
         {
-            let sight_recoil = read_memory(handle, vec![0x1423B2EC8, 0x128, 0x30, ]) + 0x430;
-            let sight_spread = read_memory(handle, vec![0x1423B2EC8, 0x128, 0x30, ]) + 0x434;
+            let sight_recoil = read_memory(handle, [0x1423B2EC8, 0x128, 0x30, ]) + 0x430;
+            let sight_spread = read_memory(handle, [0x1423B2EC8, 0x128, 0x30, ]) + 0x434;
 
-            let hip_recoil = read_memory(handle, vec![0x1423B2EC8, 0x128, 0x30, ]) + 0x438;
-            let hip_spread = read_memory(handle, vec![0x1423B2EC8, 0x128, 0x30, ]) + 0x43C;
+            let hip_recoil = read_memory(handle, [0x1423B2EC8, 0x128, 0x30, ]) + 0x438;
+            let hip_spread = read_memory(handle, [0x1423B2EC8, 0x128, 0x30, ]) + 0x43C;
 
-            write_memory(handle, sight_recoil, [0x00, 0x00, 0x00, 0x3F]);
-            write_memory(handle, sight_spread, [0x00, 0x00, 0x00, 0x3F]);
+            write_memory(handle, sight_recoil, half_float);
+            write_memory(handle, sight_spread, half_float);
 
-            write_memory(handle, hip_recoil, [0x00, 0x00, 0x00, 0x3F]);
-            write_memory(handle, hip_spread, [0x00, 0x00, 0x00, 0x3F]);
+            write_memory(handle, hip_recoil, half_float);
+            write_memory(handle, hip_spread, half_float);
 
-            std::thread::sleep( DELAY );
-        }*/
+            Sleep( DELAY );
+        }
     }
 }
