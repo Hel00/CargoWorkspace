@@ -30,7 +30,5 @@ pub fn print_node(input: TokenStream) -> TokenStream
         println!("Token {} is of Node {}", token, node);
     }
 
-    let result = TokenStream::from_str("0").unwrap();
-
-    result
+    input
 }
