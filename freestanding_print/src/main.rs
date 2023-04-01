@@ -7,12 +7,11 @@ use core::arch::asm;
 pub unsafe extern "C" fn write(file_descriptor: i32, stream: &str, size: isize)
 {
     const SYSCALL_NUMBER_WRITE: i32 = 1;
-    let mut result = 0;
 
     asm!
     {
         "syscall",
-        in("rax") 1,
+        in("rax") SYSCALL_NUMBER_WRITE,
         in("rdi") file_descriptor,
         in("rsi") stream.as_ptr(),
         in("rdx") size,
