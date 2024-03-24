@@ -165,7 +165,7 @@ impl EventHandler for Handler
 #[tokio::main]
 async fn main()
 {
-    let token = "NDU3NDk1NTAyMzQ3MzA0OTYw.GQj8j6.Q3PPceVMA8oQfXCtrvoV16gbqGBH8zk7WE_feA";
+    let token = "<TOKEN>";
 
     let intents = GatewayIntents::GUILD_MESSAGES
         | GatewayIntents::DIRECT_MESSAGES
